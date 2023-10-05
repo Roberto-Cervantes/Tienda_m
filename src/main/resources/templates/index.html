@@ -1,0 +1,18 @@
+<!-- 
+  --- Revisar las dependencias del pom ---
+1. copiar la etiqueta html de plantilla.html
+2. en el head th:replace="~{layout/plantilla::head}" para
+llamar la información del head de plantilla.html 
+-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+    <head th:replace="~{layout/plantilla::head}">
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <header th:replace="~{layout/plantilla::header}"/>
+    </body>
+</html>
