@@ -6,18 +6,17 @@ package com.tienda.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.List;
 import lombok.Data;
 
 // @data de lombok lo que hace es crear implicitamente los getter and setters
 @Data
 // @Entity lo que significa es que esta clase va a tener acceso a una tabla porque es una entidad
 @Entity
-// Significa que esta clase va a mapear la tabla categoria de la base de datos
-@Table(name="categoria")
+// Significa que esta clase va a mapear la tabla producto de la base de datos
+@Table(name="producto")
 
 // Se realiza un implements Serializable para que esta clase pueda guardar la información
-public class Categoria implements Serializable{
+public class Producto implements Serializable{
     
     // Esta variable se debe llamar serialVersionUID ya que así la utiliza la base de datos
     // para el manego de la llave primaria
@@ -28,21 +27,27 @@ public class Categoria implements Serializable{
     //@GeneratedValue(strategy = GenerationType.IDENTITY) indica que la generación de la numeración
     // la va a realizar la base de datos
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column (name="idCategoria") significa que la variable va a ser referencia a la columna
-    // idCategoria de la base de datos
-    @Column (name="idCategoria")
-    private Long idCategoria;
+    // @Column (name="idProducto") significa que la variable va a ser referencia a la columna
+    // idProducto de la base de datos
+    @Column (name="idProducto")
+    private Long idProducto;
+    //private Long idCategoria; (como esta la anotación abajo, no se puede manipular de forma directa
     private String descripcion;
+    private String detalle;
+    private double precio;
+    private int existencias;
     private String rutaImagen;
     private boolean activo;
 
-    // esta anotación es para referenciar una relación de uno  a muchos en la base datos
-    @OneToMany
-    //esta anotación es para indicar que la columna id_categoria es la que hace 
-    //la relación entre las tablas categorias y productos
-    // indicar updatable=false indica que no se actualicen cascadas de filas
-    @JoinColumn(name="id_categoria", updatable=false)
-    // la variable es una lista de productos, ya que la relación es de uno a muchos   
-    private List<Producto> productos;
+    // esta anotación hace referencia a la relación de la base de datos, se utiliza
+    // cuando en dos tablas hay una relación muchos a uno
+    @ManyToOne
+    // esta anotación indica que el atributo que va a enlazar ambas tablas 
+    // va a ser id_categoria
+    @JoinColumn(name="id_categoria")
+    
+    // esta variable indica que dentro de este objeto (producto) hay 
+    // un objeto categoria, los cuales van a estar enlazados por id_categoria
+    Categoria categoria;
     
 }
