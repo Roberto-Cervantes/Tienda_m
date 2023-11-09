@@ -16,21 +16,21 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 // debe implementar la interface ProductoService, hacer click derecho y seleccionar 
 // implements all abstract methods
-public class ProductoServiceImpl implements ProductoService{
+public class ProductoServiceImpl implements ProductoService {
 
     // permite implementar un objeto sin tener que hacer new y con solo una instancia de él
-    @Autowired 
+    @Autowired
     private ProductoDao productoDao;
-    
+
     @Override
     @Transactional(readOnly = true)
     public List<Producto> getProductos(boolean activo) {
         // Eliminamos el Throw
-        
+
         var productos = productoDao.findAll();
         return productos;
     }
-    
+
     @Override
     @Transactional(readOnly = true)
     public Producto getProducto(Producto producto) {
@@ -48,5 +48,14 @@ public class ProductoServiceImpl implements ProductoService{
     public void delete(Producto producto) {
         productoDao.delete(producto);
     }
+
+    //ejemplo de una consulta con query
+    public List<Producto> consultaQuery(double precioInf, double precioSup){
+        return productoDao.findByPrecioBetweenOrderByDescripcion(precioInf, precioSup);
+    }
     
+    public List<Producto> consultaJPQL(double precioInf, double precioSup){
+        return productoDao.consultaJPQL(precioInf, precioSup);
+    }
+
 }

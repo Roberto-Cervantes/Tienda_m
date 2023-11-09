@@ -74,4 +74,54 @@ public class PruebasController {
         return "/pruebas/listado";
     }
     
+    //Esto es un mapeo de un metodo GET (no de consultas como el de arriba)
+    // "/listado" es el nombre del get que aparece en la pagina web al pasar por encima el mouse
+    @GetMapping("/listado2")
+    public String listado2 (Model model){
+        // con la variable false, se pretende que devuelva solo todas las productos
+        //  si se lecciona true, solo va a devolver las activas
+        var  productos = productoService.getProductos(false);
+        
+        //se va a incorporar el arraylist para que pueda ser vista por una pagina HTML
+        // "Productos" es nombre de una variable 
+        //producto hace referencia a la variable indicada en var
+        model.addAttribute("productos", productos);
+        model.addAttribute("totalProductos", productos.size());
+        
+        // Devuelve el listado de categorias
+        // para incorporarlo al html en el select
+        var  categorias = categoriaService.getCategorias(true);
+        model.addAttribute("categorias", categorias);
+        
+        //el return devuelve una ubicación de un archivo
+        // producto es una carpeta, listado es un archivo
+        // Esta carpeta fue creada en el paquete templates de main/resources
+        
+        return "/pruebas/listado2";
+    }
+    
+    @PostMapping("/query1")
+    public String consulta1 (Model model, @RequestParam(value="precioInf") double precioInf,
+    @RequestParam(value="precioSup") double precioSup){
+
+        var  productos = productoService.consultaQuery(precioInf, precioSup);
+        model.addAttribute("productos", productos);
+        model.addAttribute("precioInf",precioInf);
+        model.addAttribute("precioSup",precioSup);
+        
+        return "/pruebas/listado2";
+    }
+    
+    @PostMapping("/query2")
+    public String consulta2 (Model model, @RequestParam(value="precioInf") double precioInf,
+    @RequestParam(value="precioSup") double precioSup){
+
+        var  productos = productoService.consultaJPQL(precioInf, precioSup);
+        model.addAttribute("productos", productos);
+        model.addAttribute("precioInf",precioInf);
+        model.addAttribute("precioSup",precioSup);
+        
+        return "/pruebas/listado2";
+    }
+    
 }
