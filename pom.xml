@@ -93,6 +93,7 @@
             <version>9.1.1</version>
         </dependency>  
         
+        <!--- Estas dependencias son para pedir loguearse y colocar password -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>

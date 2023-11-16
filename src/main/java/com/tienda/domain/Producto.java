@@ -28,8 +28,8 @@ public class Producto implements Serializable{
     // la va a realizar la base de datos
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // @Column (name="idProducto") significa que la variable va a ser referencia a la columna
-    // idProducto de la base de datos
-    @Column (name="idProducto")
+    // id_producto de la base de datos
+    @Column (name="id_producto")
     private Long idProducto;
     //private Long idCategoria; (como esta la anotación abajo, no se puede manipular de forma directa
     private String descripcion;

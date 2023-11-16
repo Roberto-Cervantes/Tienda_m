@@ -13,11 +13,11 @@ import lombok.Data;
 @Data
 // @Entity lo que significa es que esta clase va a tener acceso a una tabla porque es una entidad
 @Entity
-// Significa que esta clase va a mapear la tabla categoria de la base de datos
-@Table(name="categoria")
+// Significa que esta clase va a mapear la tabla rol de la base de datos
+@Table(name="rol")
 
 // Se realiza un implements Serializable para que esta clase pueda guardar la información
-public class Categoria implements Serializable{
+public class Rol implements Serializable{
     
     // Esta variable se debe llamar serialVersionUID ya que así la utiliza la base de datos
     // para el manego de la llave primaria
@@ -28,21 +28,14 @@ public class Categoria implements Serializable{
     //@GeneratedValue(strategy = GenerationType.IDENTITY) indica que la generación de la numeración
     // la va a realizar la base de datos
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column (name="idCategoria") significa que la variable va a ser referencia a la columna
-    // id_categoria de la base de datos
-    @Column (name="id_categoria")
-    private Long idCategoria;
-    private String descripcion;
-    private String rutaImagen;
-    private boolean activo;
-
-    // esta anotación es para referenciar una relación de uno  a muchos en la base datos
-    @OneToMany
-    //esta anotación es para indicar que la columna id_categoria es la que hace 
-    //la relación entre las tablas categorias y productos
-    // indicar updatable=false indica que no se actualicen cascadas de filas
-    @JoinColumn(name="id_categoria", updatable=false)
-    // la variable es una lista de productos, ya que la relación es de uno a muchos   
-    private List<Producto> productos;
+    // @Column (name="idRol") significa que la variable va a ser referencia a la columna
+    // id_rol de la base de datos
+    @Column (name="id_rol")
+    private Long idRol;
+    private String nombre;
+    
+    //Esta es una foreign key, estamos haciendo referencia igual que en la primary key
+    @Column (name="id_usuario")
+    private Long idUsuario;
     
 }
