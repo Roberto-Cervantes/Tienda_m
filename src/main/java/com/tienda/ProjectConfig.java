@@ -51,7 +51,9 @@ public class ProjectConfig implements WebMvcConfigurer {
     }
 
     /* Los siguiente métodos son para implementar el tema de seguridad dentro del proyecto */
-// son para manejar el password y la contraseña
+    // son para manejar el password y la contraseña
+    
+    // FORMA DE NO HACER UN CONTROLLER PARA ESTAS RUTAS,  LOS GET MAPPING YA VAN A ESTAR DEFINIDAS AHI
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
@@ -63,13 +65,14 @@ public class ProjectConfig implements WebMvcConfigurer {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                // permite ingreso a todos
+                // permite ingreso a todos los que quieran ver estas rutas, sin excepción
                 .authorizeHttpRequests((request) -> request
                 .requestMatchers("/", "/index", "/errores/**",
                         "/carrito/**", "/pruebas/**", "/reportes/**",
                         "/registro/**", "/js/**", "/webjars/**")
                 .permitAll()
-                // permite ingreso solo a admin       
+                        
+                // permite ingreso solo con rol admin       
                 .requestMatchers(
                         "/producto/nuevo", "/producto/guardar",
                         "/producto/modificar/**", "/producto/eliminar/**",
@@ -79,16 +82,19 @@ public class ProjectConfig implements WebMvcConfigurer {
                         "/usuario/modificar/**", "/usuario/eliminar/**",
                         "/reportes/**"
                 ).hasRole("ADMIN")
-                // permite ingreso solo a admin y vendedor        
+                        
+                // permite ingreso solo con rol admin y vendedor        
                 .requestMatchers(
                         "/producto/listado",
                         "/categoria/listado",
                         "/usuario/listado"
                 ).hasAnyRole("ADMIN", "VENDEDOR")
-                // permite ingreso solo a user        
+                        
+                // permite ingreso solo con rol user        
                 .requestMatchers("/facturar/carrito")
                 .hasRole("USER")
                 )
+                
                 // indica cual es el formulario de login
                 .formLogin((form) -> form
                 .loginPage("/login").permitAll())
