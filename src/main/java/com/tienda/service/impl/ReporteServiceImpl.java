@@ -27,7 +27,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import com.tienda.service.ReporteService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ReporteServiceImpl implements ReporteService {
 
     @Autowired
